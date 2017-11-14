@@ -2,8 +2,7 @@ import java.util.*;
 
 class Main {
     public static void main(String[] args) {
-        int matriz[][] = {{1,2,3,4},{12,13,14,5},{11,0,15,6},{10,9,8,7}};
-        No solution = new No(matriz);  //formato da solucao
+        int matriz[][] = new int[4][4];
         No no;
         int i,j;
 
@@ -17,35 +16,42 @@ class Main {
         no = new No(matriz);
 
         //procura da solucao
-        findSolution(no, solution);
+        findSolution(no);
     }
 
-    public static No findSolution(No start, No solution){
-        //criacao da tabela hash (hashmap)
-        int initialSize = 16, i;
-        double loadFactor = 0.75;
-        double sizeToRehash = initialSize * loadFactor;
-        Map<Integer,List<No>> hashAberta = new HashMap<Integer,List<No>>();
-        List<No> listaAberta = new ArrayList<>();
-        List<No> listaFechada = new ArrayList<>();
+    public static void findSolution(No start){
+        //criacao da lista
+        /*Set<No> listaAberta = new HashSet<No>();
+        Set<No> listaFechada = new HashSet<No>();*/
 
+        ArrayList<No> listaAberta = new ArrayList<No>();
+        ArrayList<No> listaFechada = new ArrayList<No>();
 
         Euristica3 euristica = new Euristica3();
         No comeca = new No(copyMatriz(start.getState()));
 
+        //set das informações do primeiro elemento
+        start.setFather(null);
         start.setG(0);
         start.setH(euristica.ficarEmOrdem(start.getState()));
+        start.setF(start.getG() + start.getH());
 
+        //primeiro elemento a ser processado
         comeca.setFather(null);
+        comeca.setG(start.getG());
         comeca.setH(start.getH());
-        comeca.setF(comeca.getH());
+        comeca.setF(comeca.getG() + comeca.getH());
 
         listaAberta.add(comeca);
-        hashAberta.put(comeca.getF(),listaAberta);//insercao do primeiro elemento
 
-        while(!hashAberta.isEmpty()){
-            int ij[] = new  int[2];
-            No emProcesso = menorF(hashAberta);
+
+        while(listaAberta.size() != 0){
+            int ij[], i = 0;
+
+            i = menorF(listaAberta); //no em execucao retirado da lista aberta
+            No emProcesso = listaAberta.get(i);
+            listaAberta.remove(emProcesso);
+            System.out.println(emProcesso.getH());
             No noAux;
 
             if( emProcesso == null){
@@ -53,96 +59,88 @@ class Main {
                 break;
             }
 
+            //verificacao se o no em processo é a configuracao em final
             if(euristica.ficarEmOrdem(emProcesso.getState()) == 0){
-                return emProcesso; //solucao final
+                System.out.println(emProcesso.getF());
+                break;
             }
 
+            //criacao das 4 possibilidades
             if(!listaFechada.contains(emProcesso)){
+
                 ij = find0(emProcesso.getState());
                 if(ij[0] != 0){
-                    noAux = changeUp(emProcesso,ij[0],ij[1]);
+                    noAux = new No (changeUp(emProcesso,ij[0],ij[1]));
                     if(!listaFechada.contains(noAux)){
+                        euristica = new Euristica3();
                         noAux.setFather(emProcesso);
                         noAux.setH(euristica.ficarEmOrdem(noAux.getState()));
                         noAux.setG(emProcesso.getG() + 1);
                         noAux.setF(noAux.getH() + noAux.getG());
-                        addNo(hashAberta, noAux, noAux.getF());
+                        listaAberta.add(noAux);
                     }
                 }
                 if(ij[0]!=3){
-                    noAux = changeDown(emProcesso,ij[0],ij[1]);
+
+                    noAux = new No(changeDown(emProcesso,ij[0],ij[1]));
                     if(!listaFechada.contains(noAux)){
+                        euristica = new Euristica3();
                         noAux.setFather(emProcesso);
                         noAux.setH(euristica.ficarEmOrdem(noAux.getState()));
                         noAux.setG(emProcesso.getG() + 1);
                         noAux.setF(noAux.getH() + noAux.getG());
-                        addNo(hashAberta, noAux, noAux.getF());
+                        listaAberta.add(noAux);
                     }
                 }
                 if(ij[1]!=3){
-                    noAux = changeRight(emProcesso,ij[0],ij[1]);
+
+                    noAux = new No(changeRight(emProcesso,ij[0],ij[1]));
                     if(!listaFechada.contains(noAux)){
+                        euristica = new Euristica3();
                         noAux.setFather(emProcesso);
                         noAux.setH(euristica.ficarEmOrdem(noAux.getState()));
                         noAux.setG(emProcesso.getG() + 1);
                         noAux.setF(noAux.getH() + noAux.getG());
-                        addNo(hashAberta, noAux, noAux.getF());
+                        listaAberta.add(noAux);
                     }
                 }
                 if(ij[1]!=0){
-                    noAux = changeLeft(emProcesso,ij[0],ij[1]);
+
+                    noAux = new No(changeLeft(emProcesso,ij[0],ij[1]));
                     if(!listaFechada.contains(noAux)){
+                        euristica = new Euristica3();
                         noAux.setFather(emProcesso);
                         noAux.setH(euristica.ficarEmOrdem(noAux.getState()));
                         noAux.setG(emProcesso.getG() + 1);
                         noAux.setF(noAux.getH() + noAux.getG());
-                        addNo(hashAberta, noAux, noAux.getF());
+                        listaAberta.add(noAux);
                     }
 
                 }
+                listaFechada.add(emProcesso);
             }
 
-            listaFechada.add(emProcesso);
 
 
         }
 
-        return null;
-    }
-    public static int addNo(Map<Integer, List<No>> hash, No novoNo, int i){
-        No noAux;
-
-        for(Map.Entry<Integer,List<No>> entry: hash.entrySet()){
-            if(entry.getKey() == i){
-                entry.getValue().add(novoNo);
-                return 0;
-            }
-        }
-        List<No> lista = new ArrayList<No>();
-        lista.add(novoNo);
-        hash.put(novoNo.getF(),lista);
-        return -1;
     }
 
-    public static No menorF(Map<Integer,List<No>> hash){
-        int i = 99999;
-        No noAux;
-        for(Map.Entry<Integer,List<No>> entry: hash.entrySet()){
-            if(entry.getKey() <= i){
-                i = entry.getKey();
-            }
-        }
-
-        for(Map.Entry<Integer,List<No>> entry: hash.entrySet()){
-            if(entry.getKey() == i){
-                for(No no: entry.getValue()){
-                    noAux = no;
-                    entry.getValue().remove(no);
-                    return noAux;
+    public static int menorF(ArrayList<No> listaAberta){
+        Scanner scan = new Scanner(System.in);
+        int i = 0,teste = 0;
+        No emProcesso = new No(null);
+        emProcesso.setF(Integer.MAX_VALUE);
+            for(No nozinho: listaAberta){
+                if(nozinho.getF() < emProcesso.getF()){
+                    emProcesso = nozinho;
+                    i = teste;
                 }
+            teste++;
             }
-        }
-        return null;
+
+        return i;
+
     }
 
     public static int[] find0(int[][] matriz){
@@ -171,41 +169,63 @@ class Main {
         return copia;
     }
 
-    public static No changeUp(No no, int i, int j){
-        int aux;
-        No novoNo = new No(copyMatriz(no.getState()));
-        aux = novoNo.state[i][j];
-        novoNo.state[i][j] = novoNo.state[i-1][j];
-        novoNo.state[i-1][j] = aux;
+    public static No copiaNo(No original){
+        No copia = new No(copyMatriz(original.getState()));
+        copia.setFather(original.getFather());
+        copia.setF(original.getF());
+        copia.setG(original.getG());
+        copia.setH(original.getH());
 
-        return novoNo;
+        return copia;
     }
-    public static No changeDown(No no, int i, int j){
-        int aux;
-        No novoNo = new No(copyMatriz(no.getState()));
-        aux = novoNo.state[i][j];
-        novoNo.state[i][j] = novoNo.state[i+1][j];
-        novoNo.state[i+1][j] = aux;
 
-        return novoNo;
+    public static void printMatriz(int matriz[][]){
+        int i,j;
+        int [][]copia = new int[4][4];
+        for( i=0; i<4 ; i++){
+            for(j=0; j<4; j++){
+                System.out.print(matriz[i][j]+" ");
+            }
+            System.out.println();
+        }
+
     }
-    public static No changeRight(No no, int i, int j){
-        int aux;
-        No novoNo = new No(copyMatriz(no.getState()));
-        aux = novoNo.state[i][j];
-        novoNo.state[i][j] = novoNo.state[i][j+1];
-        novoNo.state[i][j+1] = aux;
 
-        return novoNo;
+    public static int[][] changeUp(No no, int i, int j){
+        int aux;
+        int matriz[][] = copyMatriz(no.getState());
+        aux = matriz[i][j];
+        matriz[i][j] = matriz[i-1][j];
+        matriz[i-1][j] = aux;
+
+        return matriz;
     }
-    public static No changeLeft(No no, int i, int j){
+    public static int[][] changeDown(No no, int i, int j){
         int aux;
-        No novoNo = new No(copyMatriz(no.getState()));
-        aux = novoNo.state[i][j];
-        novoNo.state[i][j] = novoNo.state[i][j-1];
-        novoNo.state[i][j-1] = aux;
+        int matriz[][] = (copyMatriz(no.getState()));
+        aux = matriz[i][j];
+        matriz[i][j] = matriz[i+1][j];
+        matriz[i+1][j] = aux;
 
-        return novoNo;
+        return matriz;
+    }
+    public static int[][] changeRight(No no, int i, int j){
+        int aux;
+        int matriz[][] = copyMatriz(no.getState());
+        aux = matriz[i][j];
+        matriz[i][j] = matriz[i][j+1];
+        matriz[i][j+1] = aux;
+
+        return matriz;
+    }
+    public static int[][] changeLeft(No no, int i, int j) {
+        int aux;
+        int matriz[][] = copyMatriz(no.getState());
+        aux = matriz[i][j];
+        matriz[i][j] = matriz[i][j-1];
+        matriz[i][j-1] = aux;
+
+        return matriz;
     }
 
 }
@@ -215,10 +235,6 @@ class No{
     int g,h,f;
     No father;
 
-    public No(int[][] state) {
-        this.state = state;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -226,19 +242,16 @@ class No{
 
         No no = (No) o;
 
-        if (g != no.g) return false;
-        if (h != no.h) return false;
-        if (f != no.f) return false;
         return Arrays.deepEquals(state, no.state);
     }
 
     @Override
     public int hashCode() {
-        int result = Arrays.deepHashCode(state);
-        result = 31 * result + g;
-        result = 31 * result + h;
-        result = 31 * result + f;
-        return result;
+        return Arrays.deepHashCode(state);
+    }
+
+    public No(int[][] state) {
+        this.state = state;
     }
 
     public int getG() {
