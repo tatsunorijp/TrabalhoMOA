@@ -40,8 +40,10 @@ class Main {
 			No noAux;
 			//verificacao se o no em processo é a configuracao em final
 			if(emProcesso.h == 0){
-				System.out.println(emProcesso.f);
-				break;
+				System.out.println("Quantidade de movimentos: " + emProcesso.f);
+                System.out.println("Total de nos criados: " + listaAberta.size() + listaFechada.size());
+                System.out.println("Total de nos processados: " + listaFechada.size());
+                break;
 			}
 			//criacao das 4 possibilidades
 			if(emProcesso.i != 0){
@@ -148,7 +150,7 @@ class No implements Comparable<No>{
 		this.j = j;
         this.state = h;
 		this.g = g;
-		this.h = euristica2(h);
+		this.h = euristica3(h);
 		this.f = this.g + this.h;
 	}
 
