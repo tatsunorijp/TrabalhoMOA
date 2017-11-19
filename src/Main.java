@@ -148,7 +148,7 @@ class No implements Comparable<No>{
 		this.j = j;
         this.state = h;
 		this.g = g;
-		this.h = euristica1(h);
+		this.h = euristica2(h);
 		this.f = this.g + this.h;
 	}
 
