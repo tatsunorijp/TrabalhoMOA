@@ -40,8 +40,9 @@ class Main {
 			No noAux;
 			//verificacao se o no em processo é a configuracao em final
 			if(emProcesso.h == 0){
+			    int a = listaAberta.size() + listaFechada.size();
 				System.out.println("Quantidade de movimentos: " + emProcesso.f);
-                System.out.println("Total de nos criados: " + listaAberta.size() + listaFechada.size());
+                System.out.println("Total de nos criados: " + a);
                 System.out.println("Total de nos processados: " + listaFechada.size());
                 break;
 			}
