@@ -151,12 +151,12 @@ class No implements Comparable<No>{
 		this.j = j;
         this.state = h;
 		this.g = g;
-		this.h = euristica1(h);
+		this.h = heuristica2(h);
 		this.f = this.g + this.h;
 	}
 
 
-	public int euristica1(int matriz[][]){
+	public int heuristica1(int matriz[][]){
     	int resp = 0;
 		int i,j;
 		int teste[][] = {{1, 2, 3, 4}, {12, 13, 14, 5}, {11, 0, 15, 6}, {10, 9, 8, 7}};
@@ -175,7 +175,7 @@ class No implements Comparable<No>{
     	return resp;
 	}
 
-	public int euristica2(int matriz[][]){
+	public int heuristica2(int matriz[][]){
 		int resp;
 		int vetor[] = new int[16];
 		vetor[0] = matriz[0][0];
@@ -200,14 +200,16 @@ class No implements Comparable<No>{
 		vetor[14] = matriz[2][2];
 		vetor[15] = matriz[2][1];
 
-		return resp = (euristica2part2(vetor));
+		resp = heuristica2part2(vetor);
+
+		return resp;
 
 	}
 
-	public int euristica2part2(int vetor[]){
+	public int heuristica2part2(int vetor[]){
 		int resp = 0;
-		for(i=0;i<16;i++) {
-			if((vetor[i] == (vetor[i+1]-1)) || vetor[i] == 0){
+		for(i=0;i<15;i++) {
+			if((vetor[i+1] == (vetor[i]+1)) || vetor[i] == 0){
 
 			}else{
 				resp++;
@@ -216,7 +218,7 @@ class No implements Comparable<No>{
 		return resp;
 	}
 
-	public int euristica3(int matriz[][]){
+	public int heuristica3(int matriz[][]){
 		int i1,j1,aux;
 		int resp = 0;
 
@@ -224,7 +226,7 @@ class No implements Comparable<No>{
 			for(j1 = 0; j1 < 4; j1++){
 
 				aux = matriz[i1][j1];
-				resp = resp + eurista3part2(i1, j1, aux);
+				resp = resp + heuristica3part2(i1, j1, aux);
 			}
 		}
 		return resp;
@@ -232,7 +234,7 @@ class No implements Comparable<No>{
 
 	}
 
-	public int eurista3part2(int i1, int j1, int num) {
+	public int heuristica3part2(int i1, int j1, int num) {
 		int i2, j2;
 		int teste[] = {0, 0, 1, 2, 3, 7, 11, 15, 14, 13, 12, 8, 4, 5, 6, 10};
 
@@ -247,9 +249,17 @@ class No implements Comparable<No>{
 
 	}
 
-	public int euristica5(int matriz[][]){
-		int aux = Math.max(euristica1(matriz), euristica2(matriz));
-		return Math.max(aux, euristica3(matriz));
+	public int heuristica4(int matriz[][]){
+		int p1 = 1/3;
+		int p2 = 1/3;
+		int p3 = 1/3;
+
+		return (p1* heuristica1(matriz) + p2* heuristica2(matriz) + p3* heuristica3(matriz));
+	}
+
+	public int heuristica5(int matriz[][]){
+		int aux = Math.max(heuristica1(matriz), heuristica2(matriz));
+		return Math.max(aux, heuristica3(matriz));
 	}
 
     @Override
