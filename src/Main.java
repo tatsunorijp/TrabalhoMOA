@@ -207,8 +207,9 @@ class No implements Comparable<No>{
 	}
 
 	public int heuristica2part2(int vetor[]){
+		int i;
 		int resp = 0;
-		for(i=0;i<15;i++) {
+		for(i=0;i<14;i++) {
 			if((vetor[i+1] == (vetor[i]+1)) || vetor[i] == 0){
 
 			}else{
@@ -250,11 +251,11 @@ class No implements Comparable<No>{
 	}
 
 	public int heuristica4(int matriz[][]){
-		int p1 = 1/3;
-		int p2 = 1/3;
-		int p3 = 1/3;
+		double p1 = 0.15;
+		double p2 = 0.15;
+		double p3 = 0.7;
 
-		return (p1* heuristica1(matriz) + p2* heuristica2(matriz) + p3* heuristica3(matriz));
+		return (int) (p1* heuristica1(matriz) + p2* heuristica2(matriz) + p3* heuristica3(matriz));
 	}
 
 	public int heuristica5(int matriz[][]){
