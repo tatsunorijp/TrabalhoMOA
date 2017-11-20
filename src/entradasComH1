@@ -1,12 +1,27 @@
-Caso 1: 1 0 3 4 11 2 13 14 10 12 15 5 8 9 7 6 - 0m0.107s
+Caso 1: 1 0 3 4 11 2 13 14 10 12 15 5 8 9 7 6
+Quantidade de movimentos: 14
+Total de nos criados: 198
+Total de nos processados: 96
 
-Caso 2: 2 13 3 14 10 1 12 4 5 11 15 8 0 9 7 6 - 0m10.077s
+real	0m0.086s
+
+
+Caso 2: 2 13 3 14 10 1 12 4 5 11 15 8 0 9 7 6
+Quantidade de movimentos: 32
+Total de nos criados: 4067203
+Total de nos processados: 1860256
+
+real	0m10.136s
+
 
 Caso 3: 2 14 15 5 3 10 9 6 4 11 0 7 1 12 13 8
+Estouro de memoria
 
-Caso 4: 0 9 5 10 7 1 12 2 6 11 15 13 8 4 14 3 - 2m15.674s - falta de memória
+Caso 4: 0 9 5 10 7 1 12 2 6 11 15 13 8 4 14 3
+falta de memória
 
 Caso 5:  14 15 5 6 3 2 10 9 1 4 11 7 12 13 8 0
+Estouro de memoria
 
 caso 6 :5 10 4 6 15 3 9 11 14 13 0 2 1 12 8 7 - Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceeded
 	at No.<init>(Main.java:127)
@@ -15,11 +30,27 @@ caso 6 :5 10 4 6 15 3 9 11 14 13 0 2 1 12 8 7 - Exception in thread "main" java.
 
 real	6m7.030s
 
-caso 7: 12 1 2 3 11 8 13 4 10 15 7 9 0 14 6 5 - 0m0.558s
+caso 7: 12 1 2 3 11 8 13 4 10 15 7 9 0 14 6 5
+Quantidade de movimentos: 28
+Total de nos criados: 404250
+Total de nos processados: 187072
 
-caso 8: 10 1 2 4 0 14 3 15 9 11 6 8 13 12 7 5 - 0m0.508s
+real	0m0.565s
+
+
+
+caso 8: 10 1 2 4 0 14 3 15 9 11 6 8 13 12 7 5
+Quantidade de movimentos: 28
+Total de nos criados: 365770
+Total de nos processados: 168851
+
+real	0m0.505s
+
 
 Caso 9: 14 10 2 4 1 11 15 8 0 9 3 5 13 6 12 7
+Estouro de memoria
+
 
 caso 10: 2 1 4 5 12 13 8 14 3 10 7 15 11 0 9 6
+Estouro de memoria
 
