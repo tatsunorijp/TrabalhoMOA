@@ -247,6 +247,14 @@ class No implements Comparable<No>{
 
 	}
 
+	public int euristica4(int matriz[][]){
+		int p1 = 1/3;
+		int p2 = 1/3;
+		int p3 = 1/3;
+
+		return (p1*euristica1(matriz) + p2*euristica2(matriz) + p3*euristica3(matriz));
+	}
+
 	public int euristica5(int matriz[][]){
 		int aux = Math.max(euristica1(matriz), euristica2(matriz));
 		return Math.max(aux, euristica3(matriz));
