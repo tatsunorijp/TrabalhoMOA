@@ -151,7 +151,7 @@ class No implements Comparable<No>{
 		this.j = j;
         this.state = h;
 		this.g = g;
-		this.h = heuristica2(h);
+		this.h = heuristica5(h);
 		this.f = this.g + this.h;
 	}
 

@@ -1,19 +1,79 @@
 Caso 1: 1 0 3 4 11 2 13 14 10 12 15 5 8 9 7 6
+Quantidade de movimentos: 14
+Total de nos criados: 86
+Total de nos processados: 41
+
+real	0m0.079s
+
 
 Caso 2: 2 13 3 14 10 1 12 4 5 11 15 8 0 9 7 6
+Quantidade de movimentos: 32
+Total de nos criados: 11173
+Total de nos processados: 5480
+
+real	0m0.124s
+
 
 Caso 3: 2 14 15 5 3 10 9 6 4 11 0 7 1 12 13 8
+Quantidade de movimentos: 39
+Total de nos criados: 85950
+Total de nos processados: 42139
+
+real	0m0.209s
+
 
 Caso 4: 0 9 5 10 7 1 12 2 6 11 15 13 8 4 14 3
+Quantidade de movimentos: 57
+Total de nos criados: 4242886
+Total de nos processados: 2096673
+
+real	0m10.602s
+
 
 Caso 5: 14 15 5 6 3 2 10 9 1 4 11 7 12 13 8 0
+Quantidade de movimentos: 41
+Total de nos criados: 37013
+Total de nos processados: 17923
+
+real	0m0.203s
+
 
 caso 6: 5 10 4 6 15 3 9 11 14 13 0 2 1 12 8 7
+Quantidade de movimentos: 49
+Total de nos criados: 4373497
+Total de nos processados: 2127854
+
+real	0m13.234s
+
 
 caso 7: 12 1 2 3 11 8 13 4 10 15 7 9 0 14 6 5
+Quantidade de movimentos: 28
+Total de nos criados: 886
+Total de nos processados: 402
+
+real	0m0.104s
+
 
 Caso 8: 10 1 2 4 0 14 3 15 9 11 6 8 13 12 7 5
+Quantidade de movimentos: 28
+Total de nos criados: 723
+Total de nos processados: 344
+
+real	0m0.108s
+
 
 Caso 9: 14 10 2 4 1 11 15 8 0 9 3 5 13 6 12 7
+Quantidade de movimentos: 39
+Total de nos criados: 107414
+Total de nos processados: 52675
+
+real	0m0.257s
+
 
 Caso 10: 2 1 4 5 12 13 8 14 3 10 7 15 11 0 9 6
+Quantidade de movimentos: 33
+Total de nos criados: 152359
+Total de nos processados: 74601
+
+real	0m0.341s
+
