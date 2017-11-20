@@ -206,7 +206,7 @@ class No implements Comparable<No>{
 
 	public int euristica2part2(int vetor[]){
 		int resp = 0;
-		for(i=0;i<15;i++) {
+		for(i=0;i<16;i++) {
 			if((vetor[i] == (vetor[i+1]-1)) || vetor[i] == 0){
 
 			}else{
